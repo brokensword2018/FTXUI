@@ -65,16 +65,16 @@ class InputBase : public ComponentBase {
       bool hovered = hovered_;
       Decorator decorator = dim | main_decorator;
       if (is_focused)
-        decorator = decorator | focus | inverted;
+        decorator = decorator | focus;
       if (hovered || is_focused)
-        decorator = decorator | inverted;
+        decorator = decorator ;
       return text(*placeholder_) | decorator | reflect(box_);
     }
 
     // Not focused.
     if (!is_focused) {
       if (hovered_)
-        return text(content) | main_decorator | inverted | reflect(box_);
+        return text(content) | main_decorator  | reflect(box_);
       else
         return text(content) | main_decorator | reflect(box_);
     }
@@ -91,7 +91,7 @@ class InputBase : public ComponentBase {
     auto focused = (is_focused || hovered_) ? focus : select;
     return hbox({
                text(part_before_cursor),
-               text(part_at_cursor) | focused | inverted | reflect(cursor_box_),
+               text(part_at_cursor) | focused  | reflect(cursor_box_),
                text(part_after_cursor),
            }) |
            flex | frame | bold | main_decorator | reflect(box_);
